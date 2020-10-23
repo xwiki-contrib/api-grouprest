@@ -53,5 +53,38 @@
       <artifactId>grouprest-model</artifactId>
       <version>${project.version}</version>
     </dependency>
- </dependencies>
+  </dependencies>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.revapi</groupId>
+        <artifactId>revapi-maven-plugin</artifactId>
+        <configuration>
+          <analysisConfiguration><![CDATA[
+            {
+              "revapi": {
+                "filter": {
+                  // We're ignoring all API incompatibilities from XWiki dependencies (i.e. commons and rendering)
+                  // since they're already covered by their own builds and we release all of them together.
+                  "archives": {
+                    "exclude": ["org\\.xwiki\\.commons:.*:.*", "org\\.xwiki\\.rendering:.*:.*"]
+                  }
+                },
+                "ignore" : [
+                  {
+                    "code": "java.method.numberOfParametersChanged",
+                    "old": "method org.xwiki.contrib.grourest.model.jaxb.MemberGroups org.xwiki.contrib.grouprest.GroupRESTResource::get(java.lang.String) throws org.xwiki.user.group.GroupException, org.xwiki.query.QueryException",
+                    "new": "method org.xwiki.contrib.grourest.model.jaxb.MemberGroups org.xwiki.contrib.grouprest.GroupRESTResource::get(java.lang.String, boolean) throws org.xwiki.user.group.GroupException, org.xwiki.query.QueryException",
+                    "justification": "Not a breackage from REST point of view"
+                  }
+                  // Add more ignores below...
+                ]
+              }
+            }
+          ]]></analysisConfiguration>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
 </project>
