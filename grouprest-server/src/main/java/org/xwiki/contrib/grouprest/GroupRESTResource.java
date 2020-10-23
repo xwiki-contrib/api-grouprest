@@ -25,9 +25,11 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.inject.Singleton;
+import javax.ws.rs.DefaultValue;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
+import javax.ws.rs.QueryParam;
 
 import org.xwiki.component.annotation.Component;
 import org.xwiki.configuration.ConfigurationSource;
@@ -37,7 +39,6 @@ import org.xwiki.model.reference.DocumentReferenceResolver;
 import org.xwiki.model.reference.EntityReferenceSerializer;
 import org.xwiki.query.Query;
 import org.xwiki.query.QueryException;
-import org.xwiki.query.QueryManager;
 import org.xwiki.rest.XWikiResource;
 import org.xwiki.user.group.GroupException;
 import org.xwiki.user.group.GroupManager;
@@ -65,17 +66,16 @@ public class GroupRESTResource extends XWikiResource
     @Inject
     private ConfigurationSource configuration;
 
-    @Inject
-    private QueryManager queryManager;
-
     /**
      * @param member the identifier used to find the member
+     * @param recurse false if only the direct groups should be returned, true to take into account groups of groups
      * @return the found groups
      * @throws GroupException when failing to search member groups
      * @throws QueryException when failing to resolve member id
      */
     @GET
-    public MemberGroups get(@PathParam("member") String member) throws GroupException, QueryException
+    public MemberGroups get(@PathParam("member") String member,
+        @QueryParam("recurse") @DefaultValue("false") boolean recurse) throws GroupException, QueryException
     {
         MemberGroups groups = new MemberGroups();
 
@@ -87,7 +87,7 @@ public class GroupRESTResource extends XWikiResource
         groups.setReference(this.serializer.serialize(reference));
 
         // Find the groups
-        this.groupManager.getGroups(reference, WikiTarget.ALL, true)
+        this.groupManager.getGroups(reference, WikiTarget.ALL, recurse)
             .forEach(group -> groups.getGoups().add(this.serializer.serialize(group)));
 
         return groups;
