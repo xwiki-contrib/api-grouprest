@@ -50,8 +50,10 @@
     <developer>
       <id>tmortagne</id>
       <name>Thomas Mortagne</name>
-      <email>thomas.mortagne at xwiki.com</email>
-      <timezone>+1</timezone>
+      <email>thomas.mortagne@xwiki.com</email>
+      <organization>XWiki SAS</organization>
+      <organizationUrl>http://www.xwiki.com</organizationUrl>
+      <timezone>Europe/Paris</timezone>
     </developer>
   </developers>
 
