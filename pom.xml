@@ -31,7 +31,7 @@
   <groupId>org.xwiki.contrib.grouprest</groupId>
   <artifactId>grouprest</artifactId>
   <packaging>pom</packaging>
-  <version>1.1.1-SNAPSHOT</version>
+  <version>1.1.1</version>
 
   <name>Group REST API</name>
   <description>Expose a REST API to access various groups informations</description>
@@ -61,7 +61,7 @@
     <connection>scm:git:git://github.com/xwiki-contrib/api-grouprest.git</connection>
     <developerConnection>scm:git:git@github.com:xwiki-contrib/api-grouprest.git</developerConnection>
     <url>https://github.com/xwiki-contrib/api-grouprest</url>
-    <tag>HEAD</tag>
+    <tag>grouprest-1.1.1</tag>
   </scm>
 
   <build>
