@@ -88,7 +88,7 @@ public class GroupRESTResource extends XWikiResource
 
         // Find the groups
         this.groupManager.getGroups(reference, WikiTarget.ALL, recurse)
-            .forEach(group -> groups.getGoups().add(this.serializer.serialize(group)));
+            .forEach(group -> groups.getGroups().add(this.serializer.serialize(group)));
 
         return groups;
     }
